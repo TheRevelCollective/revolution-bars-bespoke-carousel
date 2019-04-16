@@ -294,6 +294,10 @@ export default {
       owl.trigger('next.owl.carousel');
     });
 
+    $(this.targetSlide).on('change', function() {
+      this.targetSlide(owl);
+    });
+
     events.forEach((eventName) => {
       owl.on(`${eventName}.owl.carousel`, (event) => {
         this.$emit(eventName, event);
@@ -326,6 +330,11 @@ export default {
       return Math.random().toString(36).substring(2, 15);
     },
   },
+  watch: {
+    targetSlide: function(value) {
+      $('#' + this.elementHandle).trigger('to.owl.carousel', value)
+    }
+  }
 };
 
 </script>
