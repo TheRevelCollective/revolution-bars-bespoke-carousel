@@ -217,6 +217,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    targetSlide: {
+      type: Number,
+      default: 0,
+    },
   },
   data: function() {
     return {
