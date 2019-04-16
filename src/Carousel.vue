@@ -294,10 +294,6 @@ export default {
       owl.trigger('next.owl.carousel');
     });
 
-    $(this.targetSlide).on('change', function() {
-      this.targetSlide(owl);
-    });
-
     events.forEach((eventName) => {
       owl.on(`${eventName}.owl.carousel`, (event) => {
         this.$emit(eventName, event);
