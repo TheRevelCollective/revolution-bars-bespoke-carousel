@@ -17,6 +17,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import 'owl.carousel';
 
 import events from './utils/events';
+import triggerables from './utils/triggerables';
 
 export default {
   name: 'VOwlCarousel',
@@ -217,10 +218,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    targetSlide: {
-      type: Number,
-      default: 0,
-    },
   },
   data: function() {
     return {
@@ -231,6 +228,20 @@ export default {
       elementHandle: 'carousel_' + this.generateUniqueId(),
       nextHandler: 'carousel_next_' + this.generateUniqueId(),
     };
+  },
+
+  created: function() {
+    const owl = $('#' + this.elementHandle);
+
+    triggerables.forEach((eventName) => {
+console.log(eventName);
+      this.$on(eventName, function()
+      {
+        var args = Array.prototype.slice.call(arguments);
+console.log(eventName, args);
+        owl.trigger(`${eventName}.owl.carousel`, args);
+      });
+    });
   },
 
   mounted: function() {
@@ -321,16 +332,19 @@ export default {
     }
   },
 
+  beforeDestroy: function() {
+    const owl = $('#' + this.elementHandle);
+
+    triggerables.forEach((eventName) => {
+      this.$off(eventName);
+    });
+  },
+
   methods: {
     generateUniqueId() {
       return Math.random().toString(36).substring(2, 15);
     },
   },
-  watch: {
-    targetSlide: function(value) {
-      $('#' + this.elementHandle).trigger('to.owl.carousel', value)
-    }
-  }
 };
 
 </script>
