@@ -240,15 +240,21 @@ export default {
         // Don't get in a loop with events like "refresh"
         if(!self.selfExecutedCall)
         {
+console.log('On ' + eventName);
           const owl = $('#' + this.elementHandle);
           var args = Array.prototype.slice.call(arguments);
+          self.selfExecutedCall = true;
+console.log('Triggering ' + `${eventName}.owl.carousel`);
           owl.trigger(`${eventName}.owl.carousel`, args);
+          self.selfExecutedCall = false;
         }
       });
     });
   },
 
   mounted: function() {
+    var self = this;
+
     const owl = $('#' + this.elementHandle).owlCarousel({
       items: this.items,
       margin: this.margin,
@@ -311,9 +317,15 @@ export default {
 
     events.forEach((eventName) => {
       owl.on(`${eventName}.owl.carousel`, (event) => {
-        self.selfExecutedCall = true;
-        this.$emit(eventName, event);
-        self.selfExecutedCall = false;
+       // Don't get in a loop with events like "refresh"
+        if(!self.selfExecutedCall)
+        {
+console.log('On ' + `${eventName}.owl.carousel`);
+          self.selfExecutedCall = true;
+console.log('Emitting ' + eventName);
+          this.$emit(eventName, event);
+          self.selfExecutedCall = false;
+        }
       });
     });
 
