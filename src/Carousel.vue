@@ -231,12 +231,10 @@ export default {
   },
 
   created: function() {
-    const owl = $('#' + this.elementHandle);
-
     triggerables.forEach((eventName) => {
-console.log(eventName);
       this.$on(eventName, function()
       {
+        const owl = $('#' + this.elementHandle);
         var args = Array.prototype.slice.call(arguments);
 console.log(eventName, args);
         owl.trigger(`${eventName}.owl.carousel`, args);
