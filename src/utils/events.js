@@ -5,12 +5,10 @@ export default [
   'resized',
   'refresh',
   'refreshed',
-  'update',
-  'updated',
   'drag',
   'dragged',
   'translate',
   'translated',
-  'to',
+  'change',
   'changed',
 ];

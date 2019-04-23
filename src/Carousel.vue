@@ -223,6 +223,7 @@ export default {
     return {
       showPrev: false,
       showNext: true,
+      selfExecutedCall: false,
 
       prevHandler: 'carousel_prev_' + this.generateUniqueId(),
       elementHandle: 'carousel_' + this.generateUniqueId(),
@@ -231,13 +232,18 @@ export default {
   },
 
   created: function() {
+    var self = this;
+
     triggerables.forEach((eventName) => {
       this.$on(eventName, function()
       {
-        const owl = $('#' + this.elementHandle);
-        var args = Array.prototype.slice.call(arguments);
-console.log(eventName, args);
-        owl.trigger(`${eventName}.owl.carousel`, args);
+        // Don't get in a loop with events like "refresh"
+        if(!self.selfExecutedCall)
+        {
+          const owl = $('#' + this.elementHandle);
+          var args = Array.prototype.slice.call(arguments);
+          owl.trigger(`${eventName}.owl.carousel`, args);
+        }
       });
     });
   },
@@ -305,7 +311,9 @@ console.log(eventName, args);
 
     events.forEach((eventName) => {
       owl.on(`${eventName}.owl.carousel`, (event) => {
+        self.selfExecutedCall = true;
         this.$emit(eventName, event);
+        self.selfExecutedCall = false;
       });
     });
 
