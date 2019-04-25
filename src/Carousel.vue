@@ -167,8 +167,8 @@ export default {
       default: 200,
     },
     responsiveBaseElement: {
-        type: String,
-        "default": "window"
+      type: String,
+      default: "window"
     },
     video: {
       type: Boolean,
@@ -292,7 +292,7 @@ console.log('Triggering ' + `${eventName}.owl.carousel`);
       callbacks: this.callbacks,
       responsive: this.responsive,
       responsiveRefreshRate: this.responsiveRefreshRate,
-      responsiveBaseElement: this.responsiveBaseElement,
+      responsiveBaseElement: this.responsiveBaseElement === "window" && window ? window : this.responsiveBaseElement,
       video: this.video,
       videoHeight: this.videoHeight,
       videoWidth: this.videoWidth,
