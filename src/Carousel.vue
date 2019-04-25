@@ -240,11 +240,9 @@ export default {
         // Don't get in a loop with events like "refresh"
         if(!self.selfExecutedCall)
         {
-console.log('On ' + eventName);
           const owl = $('#' + this.elementHandle);
           var args = Array.prototype.slice.call(arguments);
           self.selfExecutedCall = true;
-console.log('Triggering ' + `${eventName}.owl.carousel`);
           owl.trigger(`${eventName}.owl.carousel`, args);
           self.selfExecutedCall = false;
         }
@@ -307,58 +305,6 @@ console.log('Triggering ' + `${eventName}.owl.carousel`);
       checkVisible: this.checkVisible,
     });
 
-console.log({
-      items: this.items,
-      margin: this.margin,
-      loop: this.loop,
-      center: this.center,
-      mouseDrag: this.mouseDrag,
-      touchDrag: this.touchDrag,
-      pullDrag: this.pullDrag,
-      freeDrag: this.freeDrag,
-      stagePadding: this.stagePadding,
-      merge: this.merge,
-      mergeFit: this.mergeFit,
-      autoWidth: this.autoWidth,
-      startPosition: this.startPosition,
-      uRLhashListener: this.uRLhashListener,
-      nav: this.nav,
-      rewind: this.rewind,
-      navText: this.navText,
-      navElement: this.navElement,
-      slideBy: this.slideBy,
-      slideTransition: this.slideTransition,
-      dots: this.dots,
-      dotsEach: this.dotsEach,
-      dotsData: this.dotsData,
-      lazyLoad: this.lazyLoad,
-      lazyLoadEager: this.lazyLoadEager,
-      autoplay: this.autoplay,
-      autoplaySpeed: this.autoplaySpeed,
-      autoplayTimeout: this.autoplayTimeout,
-      autoplayHoverPause: this.autoplayHoverPause,
-      smartSpeed: this.smartSpeed,
-      fluidSpeed: this.fluidSpeed,
-      navSpeed: this.navSpeed,
-      dragEndSpeed: this.dragEndSpeed,
-      callbacks: this.callbacks,
-      responsive: this.responsive,
-      responsiveRefreshRate: this.responsiveRefreshRate,
-      responsiveBaseElement: this.responsiveBaseElement,
-      video: this.video,
-      videoHeight: this.videoHeight,
-      videoWidth: this.videoWidth,
-      animateOut: this.animateOut,
-      animateIn: this.animateIn,
-      fallbackEasing: this.fallbackEasing,
-      info: this.info,
-      itemElement: this.itemElement,
-      stageElement: this.stageElement,
-      navContainer: this.navContainer,
-      dotsContainer: this.dotsContainer,
-      checkVisible: this.checkVisible,
-    });
-
     $('#' + this.prevHandler).click(function() {
       owl.trigger('prev.owl.carousel');
     });
@@ -372,9 +318,7 @@ console.log({
        // Don't get in a loop with events like "refresh"
         if(!self.selfExecutedCall)
         {
-console.log('On ' + `${eventName}.owl.carousel`);
           self.selfExecutedCall = true;
-console.log('Emitting ' + eventName);
           this.$emit(eventName, event);
           self.selfExecutedCall = false;
         }
